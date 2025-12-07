@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Auth.css";
 
 const Auth = () => {
-  return <></>;
+  return <> </>;
 };
 
 export default Auth;
