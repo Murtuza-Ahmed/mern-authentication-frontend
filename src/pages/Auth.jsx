@@ -6,8 +6,9 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 
 const Auth = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, loading } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
+  if (loading) return <div>Loading...</div>;
   if (isAuthenticated) {
     return <Navigate to="/" />
   }

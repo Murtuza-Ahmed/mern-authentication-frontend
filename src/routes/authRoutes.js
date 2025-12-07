@@ -12,6 +12,6 @@ export const authRoutes = {
     { path: "/auth", element: Auth },
     { path: "/password/forgot", element: ForgotPassword },
     { path: "/password/reset/:token", element: ResetPassword },
-    { path: "/otp-verification", element: OtpVerification }
+    { path: "/otp-verification/:id", element: OtpVerification }
   ]
 }

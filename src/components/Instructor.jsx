@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Instructor.css";
 import instructorImage from "../assets/profile.png";
 
@@ -10,10 +9,10 @@ const Instructor = () => {
           <img src={instructorImage} alt="Instructor" />
         </div>
         <div className="instructor-info">
-          <h1>Muhammad Zeeshan Khan</h1>
+          <h1>Muhammad Murtuza Ahmed</h1>
           <h4>Your Instructor</h4>
           <p>
-            Hello! I'm Muhammad Zeeshan Khan, a passionate MERN stack developer
+            Hello! I&apos;m Muhammad Murtuza Ahmed, a passionate MERN stack developer
             with a love for teaching and building scalable, robust applications.
             With years of experience in JavaScript, React, Node.js, Express, and
             MongoDB, I am dedicated to helping developers learn and grow their

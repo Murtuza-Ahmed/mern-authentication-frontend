@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/Technologies.css";
 
 const techData = [
@@ -29,7 +28,22 @@ const techData = [
 ];
 
 const Technologies = () => {
-  return <></>;
+  return <>
+    <div className="technologies-section">
+      <h1>Technologies Use</h1>
+      <div className="tech-cards-container">
+        {techData.map((tech, index) => (
+          <div key={index} className="tech-card">
+            <div className="tech-image">
+              <img src={tech.image} alt={tech.name} />
+            </div>
+            <h3 className="tech-name">{tech.name}</h3>
+            <p className="tech-description">{tech.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </>;
 };
 
 export default Technologies;
