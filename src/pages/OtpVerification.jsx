@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import "../styles/OtpVerification.css";
-import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
+import { verifyOtp } from "../api/services/authServices";
 
 const OtpVerification = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useContext(AuthContext);
@@ -21,6 +21,8 @@ const OtpVerification = () => {
     }
   }
 
+  const navigate = useNavigate();
+
   // Handle Key Down
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && otp[index] === "" && index > 0) {
@@ -33,20 +35,16 @@ const OtpVerification = () => {
     e.preventDefault();
 
     const enteredOtp = otp.join("");
-    const data = {
+    const payload = {
       userId: id,
       otp: enteredOtp
     }
 
-    await axios.post("http://localhost:8000/api/verify-account", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => {
-      toast.success(res.data.message)
+    await verifyOtp(payload).then(res => {
+      toast.success(res.message)
       setIsAuthenticated(true);
-      setUser(res.data.user)
+      setUser(res.user)
+      navigate("/")
     }).catch(error => {
       toast.error(error.response.data.message)
       setIsAuthenticated(false);
