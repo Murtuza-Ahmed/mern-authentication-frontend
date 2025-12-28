@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { SignUp } from "../api/services/authServices";
 
 const Register = () => {
   const navigate = useNavigate()
@@ -9,17 +9,15 @@ const Register = () => {
 
   const handleRegister = async (data) => {
     data.phone = `+92${data.phone}`
-    await axios.post("http://localhost:8000/api/register", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
+    try {
+      const res = await SignUp(data)
+      if (res.success === true) {
+        toast.success(res.message)
+        navigate(`/otp-verification/${res.userId}`)
       }
-    }).then((res) => {
-      toast.success(res.data.message)
-      navigate(`/otp-verification/${res.data.userId}`)
-    }).catch((error) => {
+    } catch (error) {
       toast.error(error.response.data.message)
-    })
+    }
   }
   return <>
     <div>

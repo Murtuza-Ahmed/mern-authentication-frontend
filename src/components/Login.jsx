@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { SignIn } from "../api/services/authServices";
 
 const Login = () => {
   const { setIsAuthenticated, setUser } = useContext(AuthContext)
@@ -13,15 +13,10 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
 
   const handleLogin = async (data) => {
-    await axios.post("http://localhost:8000/api/login", data, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      }
-    }).then((res) => {
-      toast.success(res.data.message)
+    await SignIn(data).then((res) => {
+      toast.success(res.message)
       setIsAuthenticated(true)
-      setUser(res.data.user)
+      setUser(res.user)
       navigate("/")
     }).catch((error) => {
       toast.error(error.response.data.message)

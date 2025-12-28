@@ -1,20 +1,15 @@
 import "../styles/ForgotPassword.css";
-import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { forgotPassword } from "../api/services/authServices";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/api/password/forgot", { email }, {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      }
-    }).then((res) => {
-      toast.success(res.data.message)
+    await forgotPassword({ email }).then((res) => {
+      toast.success(res.message)
     }).catch((error) => {
       toast.error(error.response.data.message)
     })
