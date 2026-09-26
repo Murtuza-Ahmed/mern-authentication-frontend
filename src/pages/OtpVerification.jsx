@@ -46,7 +46,7 @@ const OtpVerification = () => {
       setUser(res.user)
       navigate("/")
     }).catch(error => {
-      toast.error(error.response.data.message)
+      toast.error(error.response?.data?.message || error.message || "Request failed")
       setIsAuthenticated(false);
       setUser(null)
     })
