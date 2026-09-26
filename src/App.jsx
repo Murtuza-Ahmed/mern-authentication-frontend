@@ -3,20 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { allRoutes } from "./routes";
-import { useContext, useEffect } from "react";
+import { Suspense, useContext, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
-import axios from "axios";
+import { userGetProfile } from "./api/services/userServices";
 
 const App = () => {
-  const { setIsAuthenticated, setUser, setLoading } = useContext(AuthContext);
+  const { setIsAuthenticated, setUser, setLoading, loading } = useContext(AuthContext);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/me", {
-          withCredentials: true
-        });
-        setUser(res.data.data);
+        const res = await userGetProfile();
+        setUser(res.data);
         setIsAuthenticated(true);
       } catch {
         setUser(null);
@@ -26,17 +24,21 @@ const App = () => {
       }
     };
     getUser();
-  }, []);
+  }, [setIsAuthenticated, setUser, setLoading]);
+
+  if (loading) return null;
 
   return <>
     <Router>
-      <Routes>
-        {allRoutes.map((routerGroup) =>
-          routerGroup.children.map(({ path, element: Element }) => (
-            <Route key={path} path={path} element={<Element />} />
-          ))
-        )}
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {allRoutes.map((routerGroup) =>
+            routerGroup.children.map(({ path, element: Element }) => (
+              <Route key={path} path={path} element={<Element />} />
+            ))
+          )}
+        </Routes>
+      </Suspense>
       <ToastContainer theme="colored" />
     </Router>
   </>;

@@ -1,5 +1,5 @@
 import "../styles/Instructor.css";
-import instructorImage from "../assets/profile.png";
+import instructorImage from "../assets/my-image.png";
 
 const Instructor = () => {
   return (
@@ -10,7 +10,6 @@ const Instructor = () => {
         </div>
         <div className="instructor-info">
           <h1>Muhammad Murtuza Ahmed</h1>
-          <h4>Your Instructor</h4>
           <p>
             Hello! I&apos;m Muhammad Murtuza Ahmed, a passionate MERN stack developer
             with a love for teaching and building scalable, robust applications.
@@ -21,25 +20,18 @@ const Instructor = () => {
           </p>
           <div className="social-links">
             <a
-              href="https://github.com/Zeeshu911"
+              href="https://github.com/Murtuza-Ahmed"
               target="_blank"
               rel="noopener noreferrer"
             >
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/muhammad-zeeshan-khan-dev/"
+              href="https://www.linkedin.com/in/murtuza-ahmed-36012628b/"
               target="_blank"
               rel="noopener noreferrer"
             >
               LinkedIn
-            </a>
-            <a
-              href="https://www.youtube.com/channel/UCbGtkGZ9sDg54PtU3GEDE6w"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Youtube
             </a>
           </div>
         </div>
