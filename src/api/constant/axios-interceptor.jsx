@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import axios from "axios"
-import { API_URL } from "./config"
+import { apiClient } from "../utils/axios-instance"
 import PropTypes from "prop-types";
 
 const AxiosInterceptor = ({ children }) => {
@@ -10,13 +9,11 @@ const AxiosInterceptor = ({ children }) => {
   const token = user?.accessToken
 
   useEffect(() => {
-    axios.defaults.baseURL = API_URL;
-    axios.defaults.withCredentials = true;
-
-    const requestInterceptor = axios.interceptors.request.use(
+    const requestInterceptor = apiClient.interceptors.request.use(
       config => {
-        if (token) return config;
-        config.headers.Authorization = `Bearer ${token}`
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
         return config
       },
       (error) => {
@@ -24,7 +21,7 @@ const AxiosInterceptor = ({ children }) => {
       }
     )
 
-    const responseInterceptor = axios.interceptors.response.use(
+    const responseInterceptor = apiClient.interceptors.response.use(
       (response) => response,
       (error) => {
         if (error.response?.status === 401) {
@@ -35,8 +32,8 @@ const AxiosInterceptor = ({ children }) => {
     );
 
     return () => {
-      axios.interceptors.request.eject(requestInterceptor)
-      axios.interceptors.response.eject(responseInterceptor)
+      apiClient.interceptors.request.eject(requestInterceptor)
+      apiClient.interceptors.response.eject(responseInterceptor)
     }
 
 

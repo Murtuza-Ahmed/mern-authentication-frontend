@@ -1,11 +1,21 @@
 import axios from "axios";
+import { API_URL } from "../constant/config";
+
+if (!API_URL) {
+  throw new Error("VITE_PUBLIC_API_URL must be set to the backend API base URL.");
+}
+
+export const apiClient = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+});
 
 // Function for GET requests
 export const getJsonResponse = (
   url,
   config
 ) => {
-  return axios
+  return apiClient
     .get(url, config)
     .then((response) => {
       return response.data
@@ -21,7 +31,7 @@ export const postJsonResponse = (
   data,
   config
 ) => {
-  return axios
+  return apiClient
     .post(url, data, config)
     .then((response) => response.data)
     .catch((error) => {
@@ -35,7 +45,7 @@ export const patchJsonResponse = (
   data,
   config
 ) => {
-  return axios
+  return apiClient
     .patch(url, data, config)
     .then((response) => response.data)
     .catch((error) => {
@@ -49,7 +59,7 @@ export const putJsonResponse = (
   data,
   config
 ) => {
-  return axios
+  return apiClient
     .put(url, data, config)
     .then((response) => response.data)
     .catch((error) => {
@@ -62,7 +72,7 @@ export const deleteJsonResponse = (
   url,
   config,
 ) => {
-  return axios
+  return apiClient
     .delete(url, config)
     .then((response) => response.data)
     .catch((error) => {

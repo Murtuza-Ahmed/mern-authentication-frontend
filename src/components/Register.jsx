@@ -16,7 +16,7 @@ const Register = () => {
         navigate(`/otp-verification/${res.userId}`)
       }
     } catch (error) {
-      toast.error(error.response.data.message)
+      toast.error(error.response?.data?.message || error.message || "Request failed")
     }
   }
   return <>
