@@ -49,7 +49,7 @@ export const patchJsonResponse = (
     .patch(url, data, config)
     .then((response) => response.data)
     .catch((error) => {
-      throw new Error(error.message);
+      throw error;
     });
 };
 

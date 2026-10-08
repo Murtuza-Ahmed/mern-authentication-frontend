@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 
 export const AuthContext = createContext({
@@ -16,11 +16,11 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setIsAuthenticated(false);
     setUser(null);
     setLoading(false);
-  };
+  }, []);
 
   return (
     <AuthContext.Provider value={{

@@ -33,7 +33,7 @@ const Login = () => {
       onSubmit={handleSubmit((data) => handleLogin(data))}
     >
       <h2>Login</h2>
-      <input type="emailOrPhone" placeholder="Email" required {...register("emailOrPhone")} />
+      <input type="text" placeholder="Email or Phone" required {...register("emailOrPhone")} />
       <input
         type="password"
         placeholder="Password"

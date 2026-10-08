@@ -8,7 +8,8 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
 
   const handleRegister = async (data) => {
-    data.phone = `+92${data.phone}`
+    // Strip any leading zeros the user typed, then add the country code
+    data.phone = `+92${String(data.phone).replace(/^0+/, "")}`
     try {
       const res = await SignUp(data)
       if (res.success === true) {
